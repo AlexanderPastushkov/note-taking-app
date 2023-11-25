@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Note-taking-app",
-    "slug": "Note-taking-app",
+    "slug": "notes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c64544bf-719a-4341-a83d-740c1325307c"
+      }
+    },
+    "owner": "alexanderpastfast"
   }
 }

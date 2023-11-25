@@ -1,7 +1,9 @@
 import React from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, TextInput, View } from "react-native";
 
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { ScreenNavigationProp } from "../../types/types";
 
 type Props = {
   saveNote: (text: string) => void;
@@ -9,6 +11,7 @@ type Props = {
 
 export const NoteTakingInput: React.FC<Props> = ({ saveNote }) => {
   const [text, setText] = useState("");
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <>
@@ -17,8 +20,15 @@ export const NoteTakingInput: React.FC<Props> = ({ saveNote }) => {
         style={styles.textInput}
         value={text}
         onChangeText={setText}
+        autoFocus={true}
       />
-      <Button title="Save note" onPress={() => saveNote(text)} />
+      <Button
+        title="Save note"
+        onPress={() => {
+          saveNote(text);
+          navigation.navigate("Home");
+        }}
+      />
     </>
   );
 };

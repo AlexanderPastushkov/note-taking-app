@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
+// import "react-native-get-random-values";
+// import { v4 as uuidv4 } from "uuid";
 
 export type Note = {
   text: string;
@@ -27,7 +27,7 @@ export const getNote = async (id: string) => {
 };
 export const saveNote = async (text: string) => {
   const noteStore = await getAllNotes();
-  const notes = [...noteStore.notes, { id: uuidv4(), text: text }];
+  const notes = [...noteStore.notes, { id: Date.now(), text: text }];
   try {
     await AsyncStorage.setItem(STORE_KEY, JSON.stringify({ notes: notes }));
   } catch (e) {

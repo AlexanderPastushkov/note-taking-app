@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NoteTakingInput } from "../Note/NoteTakingInput";
+import { NoteTakingInput } from "../../components/Note/NoteTakingInput";
 import { saveNote } from "../../services/noteStoreService";
 
 type Props = {};
