@@ -18,11 +18,13 @@ export default function App() {
           component={HomeScreen}
           options={({ navigation }) => {
             return {
-              headerTitle: "All",
+              headerTitle: "All notes",
               headerRight: () => (
                 <Button
                   title="New note"
-                  onPress={() => navigation.navigate("EditNote")}
+                  onPress={() =>
+                    navigation.navigate("EditNote", { noteId: undefined })
+                  }
                 />
               ),
             };

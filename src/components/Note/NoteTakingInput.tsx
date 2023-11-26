@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ScreenNavigationProp } from "../../types/types";
+import { getNote, saveNote } from "../../services/noteStoreService";
+import { SaveNote } from "../SaveNote/SaveNote";
 
 type Props = {
-  saveNote: (text: string) => void;
+  noteId: string | undefined;
 };
 
-export const NoteTakingInput: React.FC<Props> = ({ saveNote }) => {
+export const NoteTakingInput: React.FC<Props> = ({ noteId }) => {
   const [text, setText] = useState("");
   const navigation = useNavigation<ScreenNavigationProp>();
+
+  useEffect(() => {
+    if (noteId) {
+      getNote(noteId).then((result) => setText(result?.text ?? ""));
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <SaveNote text={text} noteId={noteId ?? ""} />,
+    });
+  }, [navigation, text, noteId]);
 
   return (
     <>
@@ -21,13 +35,6 @@ export const NoteTakingInput: React.FC<Props> = ({ saveNote }) => {
         value={text}
         onChangeText={setText}
         autoFocus={true}
-      />
-      <Button
-        title="Save note"
-        onPress={() => {
-          saveNote(text);
-          navigation.navigate("Home");
-        }}
       />
     </>
   );
